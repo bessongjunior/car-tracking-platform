@@ -1,0 +1,23 @@
+# Backend
+backend/venv/
+backend/__pycache__/
+backend/*.py[cod]
+backend/.env
+backend/.flaskenv
+
+# Flutter
+car_tracker/.dart_tool/
+car_tracker/.packages
+car_tracker/.pub-cache/
+car_tracker/.pub/
+car_tracker/build/
+car_tracker/.env
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
