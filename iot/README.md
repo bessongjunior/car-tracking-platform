@@ -134,3 +134,19 @@ const unsigned long SEND_INTERVAL_MS = 3000;   // milliseconds
 The key `dev-bu-gps-001` is seeded in the database and tied to **Hilux-01 (SW 1234 A)**.
 To add a new vehicle/device, run `seed.py` or insert a Device row with a new `api_key`,
 then update `DEVICE_KEY` in the sketch.
+
+Yes, exactly:
+
+┌────────────┬──────────────────┐
+│ Neo-6M Pin │   NodeMCU Pin    │
+├────────────┼──────────────────┤
+│ VCC        │ 3V3              │
+├────────────┼──────────────────┤
+│ GND        │ GND              │
+├────────────┼──────────────────┤
+│ TX         │ D2 (GPIO4 / IO4) │
+├────────────┼──────────────────┤
+│ RX         │ D1 (GPIO5 / IO5) │
+└────────────┴──────────────────┘
+
+That's all 4 pins. TX and RX are the data lines, VCC and GND are power. Good to go.
