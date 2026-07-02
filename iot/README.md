@@ -121,7 +121,7 @@ Everything else (server URL, device key, pins) is already set for the Hilux-01 d
 
 ## Send Interval
 
-Default is **10 seconds**. To change, edit this line in `arduino.ino`:
+Default is **3 seconds**. To change, edit this line in `arduino.ino`:
 
 ```cpp
 const unsigned long SEND_INTERVAL_MS = 3000;   // milliseconds
