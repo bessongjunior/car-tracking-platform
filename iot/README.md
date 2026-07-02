@@ -98,7 +98,7 @@ Everything else (server URL, device key, pins) is already set for the Hilux-01 d
 1. On boot, connects to WiFi
 2. Reads NMEA sentences from Neo-6M via SoftwareSerial (D2 pin)
 3. TinyGPSPlus parses `$GPRMC` and `$GPGGA` sentences automatically
-4. Every **10 seconds**, if a valid GPS fix exists, sends HTTP POST to:
+4. Every **3 seconds**, if a valid GPS fix exists, sends HTTP POST to:
    ```
    POST http://161.35.65.49:5000/api/v1/telemetry
    X-Device-Key: dev-bu-gps-001
@@ -124,7 +124,7 @@ Everything else (server URL, device key, pins) is already set for the Hilux-01 d
 Default is **10 seconds**. To change, edit this line in `arduino.ino`:
 
 ```cpp
-const unsigned long SEND_INTERVAL_MS = 10000;  // milliseconds
+const unsigned long SEND_INTERVAL_MS = 3000;   // milliseconds
 ```
 
 ---

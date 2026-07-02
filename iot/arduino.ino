@@ -35,7 +35,7 @@ static const int GPS_TX_PIN = 5;   // D1
 static const uint32_t GPS_BAUD = 9600;
 
 // ── Send interval ─────────────────────────────────────────────────────────────
-const unsigned long SEND_INTERVAL_MS = 10000;  // 10 seconds
+const unsigned long SEND_INTERVAL_MS = 3000;   // 3 seconds
 
 // ── Globals ───────────────────────────────────────────────────────────────────
 TinyGPSPlus    gps;
