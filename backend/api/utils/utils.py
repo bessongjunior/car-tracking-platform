@@ -38,14 +38,21 @@ def vehicle_in_geofence(lat: float, lng: float, geofence: dict) -> bool:
     fence_type = geofence.get('fence_type', 'polygon')
     geometry = geofence.get('geometry', {})
 
-    if fence_type == 'circle':
-        center = geometry.get('center', {})
-        radius = geometry.get('radius_m', 0)
-        distance = haversine_distance(lat, lng, center['lat'], center['lng'])
-        return distance <= radius
+    try:
+        if fence_type == 'circle':
+            center = geometry.get('center', {})
+            # support both 'radius_m' and 'radius' keys
+            radius = geometry.get('radius_m', geometry.get('radius', 0))
+            distance = haversine_distance(
+                lat, lng,
+                center.get('lat', 0), center.get('lng', 0),
+            )
+            return distance <= radius
 
-    if fence_type == 'polygon':
-        coords = geometry.get('coordinates', [[]])[0]
-        return point_in_polygon(lat, lng, coords)
+        if fence_type == 'polygon':
+            coords = geometry.get('coordinates', [[]])[0]
+            return point_in_polygon(lat, lng, coords)
+    except Exception:
+        return False
 
     return False

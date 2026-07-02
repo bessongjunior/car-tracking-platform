@@ -84,7 +84,11 @@ class AuthService:
             return None, 'Invalid OTP'
 
         _otp_store.pop(user_id, None)
-        user = db.session.get(User, uuid.UUID(user_id))
+        try:
+            uid = uuid.UUID(user_id)
+        except (ValueError, AttributeError):
+            return None, 'Invalid user ID'
+        user = db.session.get(User, uid)
         if not user:
             return None, 'User not found'
 
@@ -267,8 +271,12 @@ class AlertService:
         return alert
 
     @staticmethod
-    def resolve(alert_id: str, user_id: str):
-        alert = db.session.get(Alert, uuid.UUID(alert_id))
+    def resolve(alert_id: str, user_id):
+        try:
+            aid = uuid.UUID(str(alert_id))
+        except (ValueError, AttributeError):
+            return None, 'Alert not found'
+        alert = db.session.get(Alert, aid)
         if not alert:
             return None, 'Alert not found'
         alert.resolved_at = utcnow()
@@ -290,7 +298,9 @@ def _alert_title(alert_type: str) -> str:
 
 class FCMService:
     @staticmethod
-    def register_token(user_id: str, organization_id: str, fcm_token: str, platform: str):
+    def register_token(user_id, organization_id, fcm_token: str, platform: str):
+        if not user_id or not organization_id:
+            return
         existing = DeviceFCMToken.query.filter_by(user_id=user_id, organization_id=organization_id).first()
         if existing:
             existing.fcm_token = fcm_token
