@@ -30,13 +30,11 @@ class Config:
     # OTP config
     OTP_EXPIRY_SECONDS = int(os.environ.get('OTP_EXPIRY_SECONDS', 300))  # 5 min
 
-    # Gmail SMTP — requires a Google App Password (not your Google account password).
-    # Steps to generate: Google Account → Security → 2-Step Verification → App passwords
-    # Choose "Mail" + "Other (CarTracker)" → copy the 16-char password below.
-    GMAIL_SENDER       = os.environ.get('GMAIL_SENDER',       'noreply@yourdomain.com')
-    GMAIL_APP_PASSWORD = os.environ.get('GMAIL_APP_PASSWORD', '')
-    GMAIL_SMTP_HOST    = os.environ.get('GMAIL_SMTP_HOST',    'smtp.gmail.com')
-    GMAIL_SMTP_PORT    = int(os.environ.get('GMAIL_SMTP_PORT', 587))
+    # SMTP (supports SMTP_* or legacy GMAIL_* variable names)
+    GMAIL_SENDER       = os.environ.get('SMTP_USERNAME',   os.environ.get('GMAIL_SENDER',       'noreply@yourdomain.com'))
+    GMAIL_APP_PASSWORD = os.environ.get('SMTP_PASSWORD',   os.environ.get('GMAIL_APP_PASSWORD', ''))
+    GMAIL_SMTP_HOST    = os.environ.get('SMTP_ADDRESS',    os.environ.get('GMAIL_SMTP_HOST',    'smtp.gmail.com'))
+    GMAIL_SMTP_PORT    = int(os.environ.get('SMTP_PORT',   os.environ.get('GMAIL_SMTP_PORT',    587)))
 
 
 class DevelopmentConfig(Config):

@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="500" viewBox="0 0 900 500" style="background-color: #FFFFFF; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+  <defs>
+    <!-- Drop Shadow -->
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="1" dy="3" stdDeviation="2" flood-color="#000000" flood-opacity="0.08" />
+    </filter>
+
+    <!-- Gradients -->
+    <linearGradient id="headerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E3A8A"/>
+      <stop offset="100%" stop-color="#0D9488"/>
+    </linearGradient>
+
+    <!-- Markers -->
+    <marker id="rayArrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#EF4444"/>
+    </marker>
+    <marker id="measureArrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/>
+    </marker>
+  </defs>
+
+  <!-- Title Section -->
+  <rect x="0" y="0" width="900" height="90" fill="#F8FAFC" border-bottom="1px solid #E2E8F0"/>
+  <text x="30" y="40" font-size="22" font-weight="bold" fill="#1E293B">GEOFENCE GEOMETRIC CONTAINMENT PRINCIPLES</text>
+  <text x="30" y="65" font-size="14" fill="#64748B">Precise visual model of Circular (Haversine) and Polygonal (Ray-Casting) boundary verification</text>
+
+  <!-- Vertical Divider -->
+  <line x1="450" y1="110" x2="450" y2="470" stroke="#E2E8F0" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+  <!-- ================= CIRCULAR GEOFENCE (LEFT) ================= -->
+  
+  <text x="50" y="130" font-size="16" font-weight="bold" fill="#1E3A8A">1. Circular Geofence Model</text>
+  
+  <!-- The Geofence Circle -->
+  <!-- fill-opacity 0.05, stroke blue-500, stroke-dasharray -->
+  <circle cx="220" cy="280" r="110" fill="#3B82F6" fill-opacity="0.05" stroke="#3B82F6" stroke-width="2" stroke-dasharray="6 4" filter="url(#shadow)"/>
+  
+  <!-- Center Point C -->
+  <circle cx="220" cy="280" r="5" fill="#1D4ED8"/>
+  <text x="220" y="270" font-size="12" font-weight="bold" fill="#1D4ED8" text-anchor="middle">Center C (lat_c, lng_c)</text>
+  
+  <!-- Radius R line -->
+  <line x1="220" y1="280" x2="315" y2="225" stroke="#475569" stroke-width="2"/>
+  <text x="272" y="245" font-size="12" font-weight="bold" fill="#475569">Radius R</text>
+
+  <!-- Point inside (P1) -->
+  <circle cx="160" cy="240" r="6" fill="#10B981"/>
+  <line x1="220" y1="280" x2="160" y2="240" stroke="#10B981" stroke-width="1.5" stroke-dasharray="2 2"/>
+  <text x="150" y="230" font-size="11" font-weight="bold" fill="#059669">P1 (Inside)</text>
+  <text x="195" y="255" font-size="10" fill="#059669">d1 &lt;= R</text>
+
+  <!-- Point outside (P2) -->
+  <circle cx="360" cy="200" r="6" fill="#EF4444"/>
+  <line x1="220" y1="280" x2="360" y2="200" stroke="#EF4444" stroke-width="1.5" stroke-dasharray="2 2"/>
+  <text x="370" y="195" font-size="11" font-weight="bold" fill="#DC2626">P2 (Outside)</text>
+  <text x="300" y="235" font-size="10" fill="#DC2626">d2 &gt; R</text>
+
+  <!-- Mathematical Rule -->
+  <rect x="40" y="390" width="370" height="85" rx="6" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="50" y="410" font-size="12" font-weight="bold" fill="#1E293B">Haversine Distance Formula:</text>
+  <text x="50" y="430" font-size="11" fill="#475569">d = 2 * r_earth * arcsin(√sin²(Δlat/2) + cos(lat1)·cos(lat2)·sin²(Δlng/2))</text>
+  <text x="50" y="455" font-size="11" font-weight="bold" fill="#059669">Containment Rule: Inside = (d &lt;= R)</text>
+
+
+  <!-- ================= POLYGONAL GEOFENCE (RIGHT) ================= -->
+  
+  <text x="490" y="130" font-size="16" font-weight="bold" fill="#0D9488">2. Polygonal Geofence Model (Ray-Casting)</text>
+
+  <!-- The Polygon -->
+  <!-- coordinates: V0(560,180), V1(740,160), V2(820,280), V3(680,380), V4(530,300) -->
+  <polygon points="560,180 740,160 820,280 680,380 530,300" fill="#14B8A6" fill-opacity="0.05" stroke="#14B8A6" stroke-width="2" filter="url(#shadow)"/>
+  
+  <!-- Vertices labels -->
+  <circle cx="560" cy="180" r="4" fill="#0D9488"/><text x="550" y="175" font-size="10" fill="#0D9488">V0</text>
+  <circle cx="740" cy="160" r="4" fill="#0D9488"/><text x="745" y="155" font-size="10" fill="#0D9488">V1</text>
+  <circle cx="820" cy="280" r="4" fill="#0D9488"/><text x="830" y="285" font-size="10" fill="#0D9488">V2</text>
+  <circle cx="680" cy="380" r="4" fill="#0D9488"/><text x="685" y="395" font-size="10" fill="#0D9488">V3</text>
+  <circle cx="530" cy="300" r="4" fill="#0D9488"/><text x="515" y="305" font-size="10" fill="#0D9488">V4</text>
+
+  <!-- Test Point Inside Pin -->
+  <circle cx="640" cy="260" r="6" fill="#10B981"/>
+  <text x="630" y="250" font-size="11" font-weight="bold" fill="#059669">Pin (Inside)</text>
+  
+  <!-- Ray from Pin -->
+  <line x1="640" y1="260" x2="880" y2="260" stroke="#EF4444" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#rayArrow)"/>
+  <text x="850" y="250" font-size="10" fill="#EF4444" font-weight="bold">Ray</text>
+  
+  <!-- Crossing Point for Pin -->
+  <circle cx="806" cy="260" r="4" fill="#EF4444"/>
+  <text x="806" y="248" font-size="10" fill="#EF4444" font-weight="bold" text-anchor="middle">Xing 1</text>
+
+  <!-- Test Point Outside Pout -->
+  <circle cx="480" cy="240" r="6" fill="#EF4444"/>
+  <text x="470" y="230" font-size="11" font-weight="bold" fill="#DC2626">Pout (Outside)</text>
+  
+  <!-- Ray from Pout -->
+  <line x1="480" y1="240" x2="880" y2="240" stroke="#EF4444" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#rayArrow)"/>
+  
+  <!-- Crossing Points for Pout -->
+  <circle cx="548" cy="240" r="4" fill="#EF4444"/>
+  <circle cx="754" cy="240" r="4" fill="#EF4444"/>
+  <text x="548" y="228" font-size="10" fill="#EF4444" font-weight="bold" text-anchor="middle">Xing 1</text>
+  <text x="754" y="228" font-size="10" fill="#EF4444" font-weight="bold" text-anchor="middle">Xing 2</text>
+
+  <!-- Mathematical Rule -->
+  <rect x="480" y="390" width="380" height="85" rx="6" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="490" y="410" font-size="12" font-weight="bold" fill="#1E293B">Ray-Casting (Jordan Curve Theorem):</text>
+  <text x="490" y="430" font-size="11" fill="#475569">Cast horizontal ray along x-axis from point. Count line crossings.</text>
+  <text x="490" y="455" font-size="11" font-weight="bold" fill="#0D9488">Containment Rule: Inside = (Total Crossings % 2 != 0)</text>
+
+</svg>

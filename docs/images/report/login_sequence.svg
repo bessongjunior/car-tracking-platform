@@ -1,0 +1,253 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1050" height="1350" viewBox="0 0 1050 1350" style="background-color: #FFFFFF; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+  <defs>
+    <!-- Drop Shadow for Lifeline Boxes -->
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="2" dy="4" stdDeviation="3" flood-color="#000000" flood-opacity="0.08" />
+    </filter>
+
+    <!-- Gradients -->
+    <linearGradient id="userGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4F46E5"/>
+      <stop offset="100%" stop-color="#3730A3"/>
+    </linearGradient>
+    <linearGradient id="clientGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0EA5E9"/>
+      <stop offset="100%" stop-color="#0284C7"/>
+    </linearGradient>
+    <linearGradient id="backendGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <linearGradient id="dbGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6B7280"/>
+      <stop offset="100%" stop-color="#4B5563"/>
+    </linearGradient>
+    <linearGradient id="emailGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#D97706"/>
+    </linearGradient>
+
+    <!-- Markers for arrows -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#1E293B"/>
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2563EB"/>
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#059669"/>
+    </marker>
+    <marker id="arrow-dashed" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#64748B"/>
+    </marker>
+  </defs>
+
+  <!-- Title Section -->
+  <rect x="0" y="0" width="1050" height="90" fill="#F8FAFC" border-bottom="1px solid #E2E8F0"/>
+  <text x="30" y="40" font-size="22" font-weight="bold" fill="#1E293B">UML SEQUENCE DIAGRAM — USER AUTHENTICATION FLOW</text>
+  <text x="30" y="65" font-size="14" fill="#64748B">Two-Step Authentication with OTP Email verification, JWT generation, and FCM Registration</text>
+
+  <!-- Group Frame Step 1 -->
+  <rect x="20" y="125" width="1010" height="495" rx="8" fill="#F0F9FF" fill-opacity="0.4" stroke="#0EA5E9" stroke-width="1.5" stroke-dasharray="4 4" />
+  <rect x="20" y="125" width="280" height="25" rx="4" fill="#0EA5E9" />
+  <text x="30" y="142" font-size="12" font-weight="bold" fill="#FFFFFF">STEP 1: CREDENTIALS VERIFICATION &amp; OTP DISPATCH</text>
+
+  <!-- Group Frame Step 2 -->
+  <rect x="20" y="640" width="1010" height="660" rx="8" fill="#ECFDF5" fill-opacity="0.4" stroke="#10B981" stroke-width="1.5" stroke-dasharray="4 4" />
+  <rect x="20" y="640" width="280" height="25" rx="4" fill="#10B981" />
+  <text x="30" y="657" font-size="12" font-weight="bold" fill="#FFFFFF">STEP 2: OTP VERIFICATION &amp; JWT SESSION CREATION</text>
+
+  <!-- Lifelines (vertical lines) -->
+  <!-- User (80) -->
+  <line x1="120" y1="210" x2="120" y2="1280" stroke="#94A3B8" stroke-dasharray="6 4" stroke-width="1.5"/>
+  <!-- Flutter Client (320) -->
+  <line x1="320" y1="210" x2="320" y2="1280" stroke="#94A3B8" stroke-dasharray="6 4" stroke-width="1.5"/>
+  <!-- Flask Backend (560) -->
+  <line x1="560" y1="210" x2="560" y2="1280" stroke="#94A3B8" stroke-dasharray="6 4" stroke-width="1.5"/>
+  <!-- PostgreSQL Database (780) -->
+  <line x1="780" y1="210" x2="780" y2="1280" stroke="#94A3B8" stroke-dasharray="6 4" stroke-width="1.5"/>
+  <!-- Email SMTP Service (940) -->
+  <line x1="940" y1="210" x2="940" y2="1280" stroke="#94A3B8" stroke-dasharray="6 4" stroke-width="1.5"/>
+
+  <!-- Activation Bars -->
+  <!-- Flutter Client Activation -->
+  <rect x="314" y="240" width="12" height="50" rx="2" fill="#E0F2FE" stroke="#0284C7" stroke-width="1"/>
+  <rect x="314" y="560" width="12" height="50" rx="2" fill="#E0F2FE" stroke="#0284C7" stroke-width="1"/>
+  <rect x="314" y="670" width="12" height="50" rx="2" fill="#E0F2FE" stroke="#0284C7" stroke-width="1"/>
+  <rect x="314" y="990" width="12" height="230" rx="2" fill="#E0F2FE" stroke="#0284C7" stroke-width="1"/>
+
+  <!-- Backend Activation -->
+  <rect x="554" y="250" width="12" height="320" rx="2" fill="#D1FAE5" stroke="#059669" stroke-width="1"/>
+  <rect x="554" y="700" width="12" height="300" rx="2" fill="#D1FAE5" stroke="#059669" stroke-width="1"/>
+  <rect x="554" y="1060" width="12" height="110" rx="2" fill="#D1FAE5" stroke="#059669" stroke-width="1"/>
+
+  <!-- Database Activation -->
+  <rect x="774" y="270" width="12" height="60" rx="2" fill="#F3F4F6" stroke="#4B5563" stroke-width="1"/>
+  <rect x="774" y="770" width="12" height="60" rx="2" fill="#F3F4F6" stroke="#4B5563" stroke-width="1"/>
+  <rect x="774" y="1080" width="12" height="70" rx="2" fill="#F3F4F6" stroke="#4B5563" stroke-width="1"/>
+
+  <!-- Email SMTP Activation -->
+  <rect x="934" y="420" width="12" height="70" rx="2" fill="#FEF3C7" stroke="#D97706" stroke-width="1"/>
+
+
+  <!-- Header Boxes (Lifeline Labels) -->
+  <!-- User -->
+  <g transform="translate(45, 160)" filter="url(#shadow)">
+    <rect width="150" height="40" rx="6" fill="url(#userGrad)"/>
+    <text x="75" y="25" text-anchor="middle" font-size="14" font-weight="bold" fill="#FFFFFF">User (Actor)</text>
+  </g>
+
+  <!-- Flutter Client -->
+  <g transform="translate(245, 160)" filter="url(#shadow)">
+    <rect width="150" height="40" rx="6" fill="url(#clientGrad)"/>
+    <text x="75" y="25" text-anchor="middle" font-size="14" font-weight="bold" fill="#FFFFFF">Flutter Client</text>
+  </g>
+
+  <!-- Flask Backend -->
+  <g transform="translate(485, 160)" filter="url(#shadow)">
+    <rect width="150" height="40" rx="6" fill="url(#backendGrad)"/>
+    <text x="75" y="25" text-anchor="middle" font-size="14" font-weight="bold" fill="#FFFFFF">Flask Backend</text>
+  </g>
+
+  <!-- PostgreSQL Database -->
+  <g transform="translate(705, 160)" filter="url(#shadow)">
+    <rect width="150" height="40" rx="6" fill="url(#dbGrad)"/>
+    <text x="75" y="25" text-anchor="middle" font-size="14" font-weight="bold" fill="#FFFFFF">PostgreSQL DB</text>
+  </g>
+
+  <!-- Email SMTP Service -->
+  <g transform="translate(865, 160)" filter="url(#shadow)">
+    <rect width="150" height="40" rx="6" fill="url(#emailGrad)"/>
+    <text x="75" y="25" text-anchor="middle" font-size="14" font-weight="bold" fill="#FFFFFF">Gmail SMTP</text>
+  </g>
+
+
+  <!-- Messages and Operations -->
+  
+  <!-- Step 1 Details -->
+  <!-- 1. Inputs Credentials -->
+  <line x1="120" y1="240" x2="314" y2="240" stroke="#1E293B" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="217" y="232" text-anchor="middle" font-size="11" font-weight="bold" fill="#1E293B">1. Inputs email &amp; password</text>
+
+  <!-- 2. POST /auth/login -->
+  <line x1="326" y1="260" x2="554" y2="260" stroke="#2563EB" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
+  <text x="440" y="252" text-anchor="middle" font-size="11" font-weight="bold" fill="#2563EB">2. POST /auth/login</text>
+
+  <!-- 3. Query User -->
+  <line x1="566" y1="280" x2="774" y2="280" stroke="#4B5563" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="670" y="272" text-anchor="middle" font-size="11" fill="#4B5563">3. Query user record (by email)</text>
+
+  <!-- 4. User data returned -->
+  <line x1="774" y1="315" x2="566" y2="315" stroke="#4B5563" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#arrow-dashed)"/>
+  <text x="670" y="307" text-anchor="middle" font-size="11" fill="#4B5563">4. Return User row &amp; bcrypt hash</text>
+
+  <!-- 5. Internal: Bcrypt verify & generate OTP -->
+  <path d="M 566 335 C 600 335, 600 365, 566 365" fill="none" stroke="#059669" stroke-width="1.5" marker-end="url(#arrow-green)"/>
+  <text x="580" y="354" text-anchor="start" font-size="11" fill="#059669">5. Verify pwd &amp; generate 6-digit OTP</text>
+
+  <!-- 6. Internal: Store OTP in-memory -->
+  <path d="M 566 385 C 600 385, 600 415, 566 415" fill="none" stroke="#059669" stroke-width="1.5" marker-end="url(#arrow-green)"/>
+  <text x="580" y="404" text-anchor="start" font-size="11" fill="#059669">6. Save in _otp_store (5-min expiry)</text>
+
+  <!-- 7. Async: Dispatch email -->
+  <line x1="566" y1="440" x2="934" y2="440" stroke="#D97706" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="750" y="432" text-anchor="middle" font-size="11" fill="#D97706">7. send_otp_email (asynchronous thread)</text>
+
+  <!-- 8. Send SMTP Mail to user -->
+  <line x1="934" y1="475" x2="120" y2="475" stroke="#D97706" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#arrow-dashed)"/>
+  <text x="527" y="467" text-anchor="middle" font-size="11" fill="#D97706">8. SMTP Mail dispatched containing code</text>
+
+  <!-- 9. HTTP 200 Response -->
+  <line x1="554" y1="530" x2="326" y2="530" stroke="#2563EB" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#arrow-dashed)"/>
+  <text x="440" y="522" text-anchor="middle" font-size="11" font-weight="bold" fill="#2563EB">9. HTTP 200 {user_id, otp_required: true}</text>
+
+  <!-- 10. Display OTP Input Screen -->
+  <line x1="314" y1="580" x2="120" y2="580" stroke="#1E293B" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#arrow-dashed)"/>
+  <text x="217" y="572" text-anchor="middle" font-size="11" fill="#1E293B">10. Prompt user for OTP input</text>
+
+
+  <!-- Step 2 Details -->
+  <!-- 11. Inputs OTP -->
+  <line x1="120" y1="675" x2="314" y2="675" stroke="#1E293B" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="217" y="667" text-anchor="middle" font-size="11" font-weight="bold" fill="#1E293B">11. Enters 6-digit verification code</text>
+
+  <!-- 12. POST /auth/verify-otp -->
+  <line x1="326" y1="695" x2="554" y2="695" stroke="#2563EB" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
+  <text x="440" y="687" text-anchor="middle" font-size="11" font-weight="bold" fill="#2563EB">12. POST /auth/verify-otp {user_id, otp}</text>
+
+  <!-- 13. Internal: Verify OTP -->
+  <path d="M 566 715 C 600 715, 600 745, 566 745" fill="none" stroke="#059669" stroke-width="1.5" marker-end="url(#arrow-green)"/>
+  <text x="580" y="734" text-anchor="start" font-size="11" fill="#059669">13. Check match &amp; expiry in _otp_store</text>
+
+  <!-- 14. Query User details & org/role -->
+  <line x1="566" y1="780" x2="774" y2="780" stroke="#4B5563" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="670" y="772" text-anchor="middle" font-size="11" fill="#4B5563">14. Fetch org_id &amp; role membership</text>
+
+  <!-- 15. Return User role data -->
+  <line x1="774" y1="815" x2="566" y2="815" stroke="#4B5563" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#arrow-dashed)"/>
+  <text x="670" y="807" text-anchor="middle" font-size="11" fill="#4B5563">15. Return role context &amp; org memberships</text>
+
+  <!-- 16. Internal: Sign JWT -->
+  <path d="M 566 845 C 600 845, 600 875, 566 875" fill="none" stroke="#059669" stroke-width="1.5" marker-end="url(#arrow-green)"/>
+  <text x="580" y="864" text-anchor="start" font-size="11" fill="#059669">16. Sign JWT (exp 1h, HS256, roles/claims)</text>
+
+  <!-- 17. Return HTTP 200 (JWT) -->
+  <line x1="554" y1="910" x2="326" y2="910" stroke="#2563EB" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#arrow-dashed)"/>
+  <text x="440" y="902" text-anchor="middle" font-size="11" font-weight="bold" fill="#2563EB">17. HTTP 200 {access_token: "eyJ..."}</text>
+
+  <!-- 18. Local: SecureStorage & fetch FCM token -->
+  <path d="M 326 935 C 360 935, 360 965, 326 965" fill="none" stroke="#0369A1" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
+  <text x="340" y="954" text-anchor="start" font-size="11" fill="#0369A1">18. Save JWT in SecureStorage &amp; get FCM Token</text>
+
+  <!-- 19. POST /devices/fcm-token -->
+  <line x1="326" y1="1020" x2="554" y2="1020" stroke="#2563EB" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
+  <text x="440" y="1012" text-anchor="middle" font-size="11" font-weight="bold" fill="#2563EB">19. POST /devices/fcm-token (with Bearer JWT)</text>
+
+  <!-- 20. Update/Save FCM details -->
+  <line x1="566" y1="1080" x2="774" y2="1080" stroke="#4B5563" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="670" y="1072" text-anchor="middle" font-size="11" fill="#4B5563">20. Upsert token linked to user &amp; org</text>
+
+  <!-- 21. Confirm commit -->
+  <line x1="774" y1="1120" x2="566" y2="1120" stroke="#4B5563" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#arrow-dashed)"/>
+  <text x="670" y="1112" text-anchor="middle" font-size="11" fill="#4B5563">21. DB Transaction Commit</text>
+
+  <!-- 22. HTTP 200 FCM Registered -->
+  <line x1="554" y1="1150" x2="326" y2="1150" stroke="#2563EB" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#arrow-dashed)"/>
+  <text x="440" y="1142" text-anchor="middle" font-size="11" fill="#2563EB">22. HTTP 200 {"status": "success", "message": "FCM registered"}</text>
+
+  <!-- 23. Redirect to Dashboard Screen -->
+  <line x1="314" y1="1210" x2="120" y2="1210" stroke="#1E293B" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#arrow-dashed)"/>
+  <text x="217" y="1202" text-anchor="middle" font-size="11" font-weight="bold" fill="#1E293B">23. Navigates to Map/Dashboard Screen</text>
+
+  <!-- Footer Footer Box Labels -->
+  <!-- User -->
+  <g transform="translate(45, 1290)" filter="url(#shadow)">
+    <rect width="150" height="40" rx="6" fill="url(#userGrad)"/>
+    <text x="75" y="25" text-anchor="middle" font-size="14" font-weight="bold" fill="#FFFFFF">User (Actor)</text>
+  </g>
+
+  <!-- Flutter Client -->
+  <g transform="translate(245, 1290)" filter="url(#shadow)">
+    <rect width="150" height="40" rx="6" fill="url(#clientGrad)"/>
+    <text x="75" y="25" text-anchor="middle" font-size="14" font-weight="bold" fill="#FFFFFF">Flutter Client</text>
+  </g>
+
+  <!-- Flask Backend -->
+  <g transform="translate(485, 1290)" filter="url(#shadow)">
+    <rect width="150" height="40" rx="6" fill="url(#backendGrad)"/>
+    <text x="75" y="25" text-anchor="middle" font-size="14" font-weight="bold" fill="#FFFFFF">Flask Backend</text>
+  </g>
+
+  <!-- PostgreSQL Database -->
+  <g transform="translate(705, 1290)" filter="url(#shadow)">
+    <rect width="150" height="40" rx="6" fill="url(#dbGrad)"/>
+    <text x="75" y="25" text-anchor="middle" font-size="14" font-weight="bold" fill="#FFFFFF">PostgreSQL DB</text>
+  </g>
+
+  <!-- Email SMTP Service -->
+  <g transform="translate(865, 1290)" filter="url(#shadow)">
+    <rect width="150" height="40" rx="6" fill="url(#emailGrad)"/>
+    <text x="75" y="25" text-anchor="middle" font-size="14" font-weight="bold" fill="#FFFFFF">Gmail SMTP</text>
+  </g>
+
+</svg>

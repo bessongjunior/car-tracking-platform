@@ -1,0 +1,247 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1150" viewBox="0 0 900 1150" style="background-color: #FFFFFF; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+  <defs>
+    <!-- Drop Shadow -->
+    <filter id="shadow" x="-8%" y="-8%" width="116%" height="116%">
+      <feDropShadow dx="2" dy="4" stdDeviation="3" flood-color="#000000" flood-opacity="0.08" />
+    </filter>
+
+    <!-- Gradients -->
+    <linearGradient id="actionGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3B82F6"/>
+      <stop offset="100%" stop-color="#2563EB"/>
+    </linearGradient>
+    <linearGradient id="decisionGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#D97706"/>
+    </linearGradient>
+    <linearGradient id="trueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <linearGradient id="falseGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EF4444"/>
+      <stop offset="100%" stop-color="#DC2626"/>
+    </linearGradient>
+
+    <!-- Markers for arrows -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/>
+    </marker>
+  </defs>
+
+  <!-- Title Section -->
+  <rect x="0" y="0" width="900" height="90" fill="#F8FAFC" border-bottom="1px solid #E2E8F0"/>
+  <text x="30" y="40" font-size="22" font-weight="bold" fill="#1E293B">UML ACTIVITY DIAGRAM — GEOFENCE CONTAINMENT CHECK</text>
+  <text x="30" y="65" font-size="14" fill="#64748B">Algorithmic decision paths for Circle (Haversine) and Polygon (Ray-Casting) geofences</text>
+
+  <!-- Initial Node (Start) -->
+  <circle cx="450" cy="130" r="12" fill="#1E293B" filter="url(#shadow)"/>
+  <line x1="450" y1="142" x2="450" y2="170" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Action: Receive inputs -->
+  <g transform="translate(300, 170)" filter="url(#shadow)">
+    <rect width="300" height="50" rx="25" fill="url(#actionGrad)"/>
+    <text x="150" y="30" text-anchor="middle" font-size="11" font-weight="bold" fill="#FFFFFF">Receive GPS point (lat, lng) &amp; Geofence</text>
+  </g>
+  <line x1="450" y1="220" x2="450" y2="250" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Action: Extract properties -->
+  <g transform="translate(300, 250)" filter="url(#shadow)">
+    <rect width="300" height="50" rx="8" fill="url(#actionGrad)"/>
+    <text x="150" y="24" text-anchor="middle" font-size="11" font-weight="bold" fill="#FFFFFF">Extract fence_type and geometry</text>
+    <text x="150" y="38" text-anchor="middle" font-size="9" fill="#E0F2FE">vehicle_in_geofence() entry</text>
+  </g>
+  <line x1="450" y1="300" x2="450" y2="330" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Decision: Which fence type? -->
+  <g transform="translate(400, 330)" filter="url(#shadow)">
+    <!-- Diamond -->
+    <path d="M 50 0 L 100 40 L 50 80 L 0 40 Z" fill="url(#decisionGrad)"/>
+    <text x="50" y="44" text-anchor="middle" font-size="10" font-weight="bold" fill="#FFFFFF">fence_type?</text>
+  </g>
+
+  <!-- Decision Branch 1: Circle (to Left) -->
+  <line x1="400" y1="370" x2="220" y2="370" stroke="#475569" stroke-width="2"/>
+  <line x1="220" y1="370" x2="220" y2="420" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="310" y="362" text-anchor="middle" font-size="10" font-weight="bold" fill="#475569">[circle]</text>
+
+  <!-- Decision Branch 2: Polygon (to Right) -->
+  <line x1="500" y1="370" x2="680" y2="370" stroke="#475569" stroke-width="2"/>
+  <line x1="680" y1="370" x2="680" y2="420" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="590" y="362" text-anchor="middle" font-size="10" font-weight="bold" fill="#475569">[polygon]</text>
+
+  <!-- Decision Branch 3: Other/Unsupported (Downwards) -->
+  <line x1="450" y1="410" x2="450" y2="990" stroke="#EF4444" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="455" y="435" text-anchor="start" font-size="10" font-weight="bold" fill="#EF4444">[other / fallback]</text>
+
+
+  <!-- ================= CIRCLE PATH (LEFT) ================= -->
+  
+  <!-- Action: Get circle params -->
+  <g transform="translate(80, 420)" filter="url(#shadow)">
+    <rect width="280" height="50" rx="8" fill="url(#actionGrad)"/>
+    <text x="140" y="29" text-anchor="middle" font-size="11" font-weight="bold" fill="#FFFFFF">Get center {lat, lng} &amp; radius_m</text>
+  </g>
+  <line x1="220" y1="470" x2="220" y2="500" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Action: Haversine distance -->
+  <g transform="translate(80, 500)" filter="url(#shadow)">
+    <rect width="280" height="60" rx="8" fill="url(#actionGrad)"/>
+    <text x="140" y="24" text-anchor="middle" font-size="11" font-weight="bold" fill="#FFFFFF">Calculate Haversine Distance</text>
+    <text x="140" y="38" text-anchor="middle" font-size="9" fill="#E0F2FE">d = 2R * asin(sqrt(sin²(Δlat/2) + ...))</text>
+    <text x="140" y="49" text-anchor="middle" font-size="9" fill="#E0F2FE">haversine_distance()</text>
+  </g>
+  <line x1="220" y1="560" x2="220" y2="590" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Decision: Distance <= Radius? -->
+  <g transform="translate(170, 590)" filter="url(#shadow)">
+    <path d="M 50 0 L 100 35 L 50 70 L 0 35 Z" fill="url(#decisionGrad)"/>
+    <text x="50" y="39" text-anchor="middle" font-size="9" font-weight="bold" fill="#FFFFFF">d &lt;= radius?</text>
+  </g>
+
+  <!-- Distance Decision Branch: Yes -->
+  <line x1="170" y1="625" x2="100" y2="625" stroke="#475569" stroke-width="2"/>
+  <line x1="100" y1="625" x2="100" y2="680" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="135" y="617" text-anchor="middle" font-size="10" font-weight="bold" fill="#475569">[yes]</text>
+
+  <!-- Action: Return True -->
+  <g transform="translate(20, 680)" filter="url(#shadow)">
+    <rect width="160" height="45" rx="8" fill="url(#trueGrad)"/>
+    <text x="80" y="26" text-anchor="middle" font-size="11" font-weight="bold" fill="#FFFFFF">Return True (Inside)</text>
+  </g>
+
+  <!-- Distance Decision Branch: No -->
+  <line x1="270" y1="625" x2="340" y2="625" stroke="#475569" stroke-width="2"/>
+  <line x1="340" y1="625" x2="340" y2="680" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="305" y="617" text-anchor="middle" font-size="10" font-weight="bold" fill="#475569">[no]</text>
+
+  <!-- Action: Return False -->
+  <g transform="translate(260, 680)" filter="url(#shadow)">
+    <rect width="160" height="45" rx="8" fill="url(#falseGrad)"/>
+    <text x="80" y="26" text-anchor="middle" font-size="11" font-weight="bold" fill="#FFFFFF">Return False (Outside)</text>
+  </g>
+
+  <!-- Merge Circle Flow -->
+  <line x1="100" y1="725" x2="100" y2="760" stroke="#475569" stroke-width="1.5"/>
+  <line x1="340" y1="725" x2="340" y2="760" stroke="#475569" stroke-width="1.5"/>
+  <line x1="100" y1="760" x2="220" y2="760" stroke="#475569" stroke-width="1.5"/>
+  <line x1="340" y1="760" x2="220" y2="760" stroke="#475569" stroke-width="1.5"/>
+  <line x1="220" y1="760" x2="220" y2="940" stroke="#475569" stroke-width="1.5"/>
+
+
+  <!-- ================= POLYGON PATH (RIGHT) ================= -->
+
+  <!-- Action: Get coordinates ring -->
+  <g transform="translate(540, 420)" filter="url(#shadow)">
+    <rect width="280" height="50" rx="8" fill="url(#actionGrad)"/>
+    <text x="140" y="29" text-anchor="middle" font-size="11" font-weight="bold" fill="#FFFFFF">Get outer coordinate ring [[lng, lat], ...]</text>
+  </g>
+  <line x1="680" y1="470" x2="680" y2="500" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Action: Loop setup -->
+  <g transform="translate(540, 500)" filter="url(#shadow)">
+    <rect width="280" height="50" rx="8" fill="url(#actionGrad)"/>
+    <text x="140" y="24" text-anchor="middle" font-size="11" font-weight="bold" fill="#FFFFFF">Initialize inside = False</text>
+    <text x="140" y="38" text-anchor="middle" font-size="9" fill="#E0F2FE">Set loop index j = n - 1</text>
+  </g>
+  <line x1="680" y1="550" x2="680" y2="580" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Loop Entry Diamond (Merge) -->
+  <g transform="translate(660, 580)">
+    <path d="M 20 0 L 40 15 L 20 30 L 0 15 Z" fill="#64748B" stroke="#475569" stroke-width="1"/>
+  </g>
+  <line x1="680" y1="610" x2="680" y2="630" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Action: Ray Casting check -->
+  <g transform="translate(520, 630)" filter="url(#shadow)">
+    <rect width="320" height="75" rx="8" fill="url(#actionGrad)"/>
+    <text x="160" y="24" text-anchor="middle" font-size="11" font-weight="bold" fill="#FFFFFF">Evaluate edge intersection with ray</text>
+    <text x="160" y="42" text-anchor="middle" font-size="9" fill="#E0F2FE">Condition: ((yi &gt; lat) != (yj &gt; lat)) AND</text>
+    <text x="160" y="55" text-anchor="middle" font-size="9" fill="#E0F2FE">(lng &lt; (xj - xi) * (lat - yi) / (yj - yi) + xi)</text>
+    <text x="160" y="66" text-anchor="middle" font-size="8" fill="#93C5FD">point_in_polygon() loop iteration</text>
+  </g>
+  <line x1="680" y1="705" x2="680" y2="735" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Decision: Intersection Condition met? -->
+  <g transform="translate(630, 735)" filter="url(#shadow)">
+    <path d="M 50 0 L 100 35 L 50 70 L 0 35 Z" fill="url(#decisionGrad)"/>
+    <text x="50" y="39" text-anchor="middle" font-size="9" font-weight="bold" fill="#FFFFFF">Met?</text>
+  </g>
+
+  <!-- Intersection met -> yes -->
+  <line x1="630" y1="770" x2="570" y2="770" stroke="#475569" stroke-width="2"/>
+  <line x1="570" y1="770" x2="570" y2="820" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="600" y="762" text-anchor="middle" font-size="9" font-weight="bold" fill="#475569">[yes]</text>
+
+  <!-- Action: Toggle state -->
+  <g transform="translate(490, 820)" filter="url(#shadow)">
+    <rect width="160" height="40" rx="8" fill="url(#actionGrad)"/>
+    <text x="80" y="24" text-anchor="middle" font-size="10" font-weight="bold" fill="#FFFFFF">Toggle inside state</text>
+    <text x="80" y="34" text-anchor="middle" font-size="8" fill="#E0F2FE">inside = not inside</text>
+  </g>
+
+  <!-- Intersection not met -> no -->
+  <line x1="730" y1="770" x2="790" y2="770" stroke="#475569" stroke-width="2"/>
+  <line x1="790" y1="770" x2="790" y2="820" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="760" y="762" text-anchor="middle" font-size="9" font-weight="bold" fill="#475569">[no]</text>
+
+  <!-- Action: Keep state -->
+  <g transform="translate(710, 820)" filter="url(#shadow)">
+    <rect width="160" height="40" rx="8" fill="url(#actionGrad)"/>
+    <text x="80" y="24" text-anchor="middle" font-size="10" font-weight="bold" fill="#FFFFFF">Retain inside state</text>
+  </g>
+
+  <!-- Loop Merge Node -->
+  <line x1="570" y1="860" x2="570" y2="890" stroke="#475569" stroke-width="1.5"/>
+  <line x1="790" y1="860" x2="790" y2="890" stroke="#475569" stroke-width="1.5"/>
+  <line x1="570" y1="890" x2="680" y2="890" stroke="#475569" stroke-width="1.5"/>
+  <line x1="790" y1="890" x2="680" y2="890" stroke="#475569" stroke-width="1.5"/>
+  <line x1="680" y1="890" x2="680" y2="920" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Decision: End of loop? (i incremented to n) -->
+  <g transform="translate(630, 920)" filter="url(#shadow)">
+    <path d="M 50 0 L 100 35 L 50 70 L 0 35 Z" fill="url(#decisionGrad)"/>
+    <text x="50" y="39" text-anchor="middle" font-size="9" font-weight="bold" fill="#FFFFFF">i == n - 1?</text>
+  </g>
+
+  <!-- Loop back -> no -->
+  <line x1="730" y1="955" x2="860" y2="955" stroke="#475569" stroke-width="1.5"/>
+  <line x1="860" y1="955" x2="860" y2="595" stroke="#475569" stroke-width="1.5"/>
+  <line x1="860" y1="595" x2="700" y2="595" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="810" y="947" text-anchor="middle" font-size="9" font-weight="bold" fill="#475569">[no (j = i, i++)]</text>
+
+  <!-- Loop exit -> yes -->
+  <line x1="680" y1="990" x2="680" y2="1010" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="685" y="1002" text-anchor="start" font-size="9" font-weight="bold" fill="#475569">[yes]</text>
+
+  <!-- Action: Return inside -->
+  <g transform="translate(600, 1010)" filter="url(#shadow)">
+    <rect width="160" height="45" rx="8" fill="url(#trueGrad)"/>
+    <text x="80" y="26" text-anchor="middle" font-size="11" font-weight="bold" fill="#FFFFFF">Return inside value</text>
+  </g>
+  <line x1="680" y1="1055" x2="680" y2="1080" stroke="#475569" stroke-width="1.5"/>
+
+
+  <!-- ================= FINAL CONVERGENCE ================= -->
+
+  <!-- Final Merge Node -->
+  <g transform="translate(435, 990)">
+    <path d="M 15 0 L 30 15 L 15 30 L 0 15 Z" fill="#64748B" stroke="#475569" stroke-width="1"/>
+  </g>
+  <!-- Circle flows to merge -->
+  <line x1="220" y1="940" x2="220" y2="1005" stroke="#475569" stroke-width="1.5"/>
+  <line x1="220" y1="1005" x2="435" y2="1005" stroke="#475569" stroke-width="1.5"/>
+
+  <!-- Polygon flows to merge -->
+  <line x1="680" y1="1080" x2="680" y2="1100" stroke="#475569" stroke-width="1.5"/>
+  <line x1="680" y1="1100" x2="465" y2="1100" stroke="#475569" stroke-width="1.5"/>
+  <line x1="450" y1="1020" x2="450" y2="1085" stroke="#475569" stroke-width="1.5"/>
+
+  <!-- Connect merge to final node -->
+  <line x1="450" y1="1100" x2="450" y2="1120" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Final Node (End) -->
+  <circle cx="450" cy="1132" r="12" fill="none" stroke="#1E293B" stroke-width="2"/>
+  <circle cx="450" cy="1132" r="7" fill="#1E293B"/>
+
+</svg>
