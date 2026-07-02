@@ -272,7 +272,7 @@ class AlertService:
         if not alert:
             return None, 'Alert not found'
         alert.resolved_at = utcnow()
-        alert.resolved_by = user_id
+        alert.resolved_by = uuid.UUID(str(user_id)) if not isinstance(user_id, uuid.UUID) else user_id
         db.session.commit()
         return alert, None
 

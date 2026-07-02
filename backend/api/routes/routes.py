@@ -1,4 +1,5 @@
 import math
+import uuid as _uuid
 
 from flask import Blueprint, request
 from flask_jwt_extended import get_jwt, get_jwt_identity, jwt_required
@@ -14,6 +15,13 @@ from ..utils.custom_response import error, success
 from ..utils.helpers import get_device_from_request, require_role
 
 api_bp = Blueprint('api', __name__)
+
+def _uid(s):
+    """Convert a UUID string from JWT/URL to uuid.UUID for SQLAlchemy Uuid columns."""
+    try:
+        return _uuid.UUID(s) if s else None
+    except (ValueError, AttributeError):
+        return None
 
 
 # ── Auth ──────────────────────────────────────────────────────────────────────
@@ -161,7 +169,7 @@ def list_vehicles():
         description: Missing or invalid JWT.
     """
     claims = get_jwt()
-    org_id = claims.get('org_id')
+    org_id = _uid(claims.get('org_id'))
     vehicles = Vehicle.query.filter_by(organization_id=org_id).all()
     data = [
         {
@@ -203,8 +211,8 @@ def get_vehicle(vehicle_id):
         description: Vehicle not found or does not belong to this organisation.
     """
     claims = get_jwt()
-    org_id = claims.get('org_id')
-    vehicle = Vehicle.query.filter_by(id=vehicle_id, organization_id=org_id).first()
+    org_id = _uid(claims.get('org_id'))
+    vehicle = Vehicle.query.filter_by(id=_uid(vehicle_id), organization_id=org_id).first()
     if not vehicle:
         return error('Vehicle not found', 404)
     return success({
@@ -320,7 +328,7 @@ def register_fcm_token():
     user_id = get_jwt_identity()
     org_id = claims.get('org_id')
 
-    FCMService.register_token(user_id, org_id, data['fcm_token'], data['platform'])
+    FCMService.register_token(_uid(user_id), _uid(org_id), data['fcm_token'], data['platform'])
     return success(message='FCM token registered')
 
 
@@ -367,7 +375,7 @@ def list_alerts():
         description: Missing or invalid JWT.
     """
     claims = get_jwt()
-    org_id = claims.get('org_id')
+    org_id = _uid(claims.get('org_id'))
     resolved = request.args.get('resolved', 'false').lower() == 'true'
 
     query = Alert.query.filter_by(organization_id=org_id)
@@ -417,7 +425,7 @@ def resolve_alert(alert_id):
         description: Alert not found.
     """
     user_id = get_jwt_identity()
-    alert, err = AlertService.resolve(alert_id, user_id)
+    alert, err = AlertService.resolve(alert_id, _uid(user_id))
     if err:
         return error(err, 404)
     return success({'id': str(alert.id), 'resolved_at': alert.resolved_at.isoformat()})
@@ -461,7 +469,7 @@ def list_geofences():
         description: Missing or invalid JWT.
     """
     claims = get_jwt()
-    org_id = claims.get('org_id')
+    org_id = _uid(claims.get('org_id'))
     fences = Geofence.query.filter_by(organization_id=org_id, is_active=True).all()
     data = [
         {
@@ -536,7 +544,7 @@ def create_geofence():
         return error('Validation failed', 422, e.messages)
 
     claims = get_jwt()
-    org_id = claims.get('org_id')
+    org_id = _uid(claims.get('org_id'))
 
     fence = Geofence(
         organization_id=org_id,
@@ -580,8 +588,8 @@ def delete_geofence(fence_id):
         description: Geofence not found.
     """
     claims = get_jwt()
-    org_id = claims.get('org_id')
-    fence = Geofence.query.filter_by(id=fence_id, organization_id=org_id).first()
+    org_id = _uid(claims.get('org_id'))
+    fence = Geofence.query.filter_by(id=_uid(fence_id), organization_id=org_id).first()
     if not fence:
         return error('Geofence not found', 404)
     fence.is_active = False
@@ -732,7 +740,7 @@ def get_me():
     user_id = get_jwt_identity()
     claims  = get_jwt()
 
-    user = db.session.get(User, user_id)
+    user = db.session.get(User, _uid(user_id))
     if not user:
         return error('User not found', 404)
 
@@ -786,7 +794,7 @@ def telemetry_history():
         description: Missing or invalid JWT.
     """
     claims = get_jwt()
-    org_id = claims.get('org_id')
+    org_id = _uid(claims.get('org_id'))
     limit  = min(int(request.args.get('limit', 20)), 100)
 
     vehicles = Vehicle.query.filter_by(organization_id=org_id).all()
