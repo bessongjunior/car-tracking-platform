@@ -8,6 +8,7 @@ Firebase paths written by this module:
 import logging
 from datetime import datetime, timedelta, timezone
 
+import uuid
 import bcrypt
 from flask import current_app
 from flask_jwt_extended import create_access_token
@@ -83,7 +84,7 @@ class AuthService:
             return None, 'Invalid OTP'
 
         _otp_store.pop(user_id, None)
-        user = db.session.get(User, user_id)
+        user = db.session.get(User, uuid.UUID(user_id))
         if not user:
             return None, 'User not found'
 
@@ -267,7 +268,7 @@ class AlertService:
 
     @staticmethod
     def resolve(alert_id: str, user_id: str):
-        alert = db.session.get(Alert, alert_id)
+        alert = db.session.get(Alert, uuid.UUID(alert_id))
         if not alert:
             return None, 'Alert not found'
         alert.resolved_at = utcnow()
