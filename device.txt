@@ -1,0 +1,91 @@
+GPS DEVICE TELEMETRY REQUEST
+==============================
+
+Device:   Hilux-01 (GPS-BU-001)
+Assigned: SW 1234 A — Hilux pickup
+
+
+ENDPOINT
+--------
+POST http://<server-ip>:5000/api/v1/telemetry
+
+
+HEADERS
+-------
+Content-Type: application/json
+X-Device-Key: dev-bu-gps-001
+
+
+FULL REQUEST BODY
+-----------------
+{
+  "latitude":      4.1574,
+  "longitude":     9.2513,
+  "speed":         45.0,
+  "course":        225,
+  "altitude":      1456.0,
+  "engine_status": true,
+  "odometer":      24309.7,
+  "timestamp":     "2026-07-02T10:30:00Z",
+  "sensors": {
+    "fuel_level": 82
+  }
+}
+
+
+FIELD REFERENCE
+---------------
+Field           Type      Required  Description
+-----------     ------    --------  ------------------------------------
+latitude        float     YES       GPS latitude  (e.g. 4.1574)
+longitude       float     YES       GPS longitude (e.g. 9.2513)
+speed           float     no        Speed in km/h from Neo-7M GPRMC SOG field
+course          integer   no        Heading in degrees (0–359)
+altitude        float     no        Altitude in metres above sea level
+engine_status   boolean   no        true = engine on, false = engine off
+odometer        float     no        Total distance travelled in km
+timestamp       string    no        ISO 8601 UTC time from GPS (if omitted, server uses current time)
+sensors         object    no        Any extra sensor readings as key-value pairs
+
+
+EXAMPLE — curl
+--------------
+curl -X POST http://<server-ip>:5000/api/v1/telemetry \
+  -H "Content-Type: application/json" \
+  -H "X-Device-Key: dev-bu-gps-001" \
+  -d '{
+    "latitude":      4.1574,
+    "longitude":     9.2513,
+    "speed":         45.0,
+    "course":        225,
+    "altitude":      1456.0,
+    "engine_status": true,
+    "odometer":      24309.7,
+    "timestamp":     "2026-07-02T10:30:00Z",
+    "sensors":       { "fuel_level": 82 }
+  }'
+
+
+EXPECTED RESPONSE (201)
+-----------------------
+{
+  "status": "success",
+  "message": "Telemetry recorded",
+  "data": {
+    "telemetry_id": 1,
+    "vehicle_id": "<uuid>",
+    "latitude": 4.1574,
+    "longitude": 9.2513,
+    "speed": 45.0
+  }
+}
+
+
+NOTES
+-----
+- X-Device-Key is the only authentication required for the IoT device (no JWT).
+- The device key dev-bu-gps-001 is pre-seeded and tied to Hilux-01 (SW 1234 A).
+- Speed should come directly from the $GPRMC NMEA sentence Speed Over Ground field (knots),
+  converted to km/h before sending (multiply knots × 1.852).
+- If Firebase is not configured, the backend still saves to the database — no crash.
+- Send a point as often as needed (e.g. every 5–10 seconds while moving).
